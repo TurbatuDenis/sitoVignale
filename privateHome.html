@@ -1,0 +1,109 @@
+<?php
+// We need to use sessions, so you should always start sessions using the below code.
+session_start();
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+	header('Location: login.php');
+	exit;
+}
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Admin Page |
+		<?php
+
+        $titoloSito = $_SESSION['nomeSito'];
+
+        echo $titoloSito;
+        
+        ?>
+	</title>
+	<link href="./Assets/CSS/StyleLogin.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+</head>
+
+<body class="loggedin">
+	<nav class="navtop">
+		<div>
+			<h1>
+				<?php
+
+        $titoloSito = $_SESSION['nomeSito'];
+$_SESSION['OutputMessage'] = "";
+
+        echo $titoloSito;
+        
+        ?>
+			</h1>
+			<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+		</div>
+	</nav>
+	<div class="MessageBox">
+		<div class="MessageBoxAction"></div>
+		<p id="MessageBoxParagraph"></p>
+	</div>
+	<div class="content">
+		<h2>Home Page</h2>
+		<p>Welcome back,
+			<?=$_SESSION['name']?>!
+		</p>
+	</div>
+	<div class="content">
+		<form action="adminFunctions.php" method="POST" enctype="multipart/form-data">
+			<div class="postNews">
+				<h4>Aggiungi Notizia</h4>
+				<br>
+
+				<p>
+					<?php
+					
+					echo $_SESSION['OutputMessage'];
+				?>
+				</p>
+				<input type="file" name="immagineNews" id="immagineNews">
+				<br>
+				<input type="text" id="newsTitle" name="newsTitle" placeholder="Titolo" required>
+				<Textarea id="newsDescription" name="newsDescription" rows="5" cols="130" placeholder="Descrizione"
+					required>Lorem Ipsum Dolor Sit Amet....</Textarea>
+				<br>
+				<button type="submit" value="SalvaNews" name="SalvaNews">Salva</button>
+			</div>
+		</form>
+	</div>
+	<br>
+	<br>
+	<br>
+
+	<div class="content">
+		<ul>
+
+			<li class="NewsPostList">
+				<a href="#">
+					<h5>Test</h5>
+					<p>lol</p>
+				</a>
+			</li>
+
+			<!-- <?php
+
+include('conn.php');
+
+$sql = $conn->query("select * from `newshome`");
+
+while($row=$sql->fetch_assoc()){
+  $NewsTot = <<<EOD
+	<li></li>
+EOD;
+echo $NewsTot;
+}
+?>-->
+		</ul>
+	</div>
+
+</body>
+
+</html>
